@@ -3,3 +3,7 @@ export {
   setBicycle,
   fetchBicycles
 } from './bicycle'
+
+export {
+  setUserType
+} from './auth'

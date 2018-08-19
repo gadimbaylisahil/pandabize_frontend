@@ -1,4 +1,4 @@
-import pandabizeApi from '../../api/pandabizeapi';
+import pandabizeApi from '../../api/pandabizeApi';
 import * as actionTypes from './actionTypes';
 
 export const setBicycles = ( bicycles ) => {
