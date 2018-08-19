@@ -3,7 +3,9 @@ import { updateObject } from '../../shared/update'
 
 const initialState = {
   bicycles: null,
-  bicycle: null
+  bicycle: null,
+  error: false,
+  loading: false
 }
 
 const setBicycles = (state, action) => {
@@ -18,6 +20,12 @@ const setBicycle = (state, action) => {
   } )
 }
 
+const setApplicationLoadingState = (state, action) => {
+  return updateObject( state, {
+    loading: action.loading,
+  } )
+}
+
 const fetchBicyclesFailed = (state, action) => {
   return updateObject( state, { error: true } )
 }
@@ -27,6 +35,7 @@ const reducer = ( state = initialState, action ) => {
     case actionTypes.SET_BICYCLES: return setBicycles(state, action)
     case actionTypes.SET_BICYCLE: return setBicycle(state, action)
     case actionTypes.FETCH_BICYCLES_FAILED: return fetchBicyclesFailed(state, action)
+    case actionTypes.SET_APPLICATION_LOADING_STATE: return setApplicationLoadingState(state, action)
     default: return state
   }
 }
