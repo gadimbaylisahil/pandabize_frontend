@@ -50,6 +50,55 @@ export const fetchBicycles = () => {
   }
 }
 
+export const patchBicycle = (id, data) => {
+  return dispatch => {
+    dispatch(setApplicationLoadingState(true))
+    return new Promise( (resolve, reject) => {
+      pandabizeApi.patch( 'bicycles/' + id, { bicycle: data })
+          .then( response => {
+            dispatch(setApplicationLoadingState(false))
+            resolve(response)
+          })
+          .catch( error => {
+            reject(error)
+          })
+    })
+  }
+}
+
+export const deleteVariant = (bicycleId, variantId) => {
+  return dispatch => {
+    dispatch(setApplicationLoadingState(true))
+    return new Promise( (resolve, reject) => {
+      pandabizeApi.delete('bicycles/' + bicycleId + '/variants/' + variantId)
+          .then( response => {
+            dispatch(setApplicationLoadingState(false))
+            resolve(response)
+          })
+          .catch( error => {
+            dispatch(setApplicationLoadingState(false))
+            reject(error)
+          })
+    })
+  }
+}
+
+export const deleteBicycle = (id) => {
+  return dispatch => {
+    dispatch(setApplicationLoadingState(true))
+    return new Promise( (resolve, reject) => {
+      pandabizeApi.delete( 'bicycles/' + id)
+          .then( response => {
+            dispatch(setApplicationLoadingState(false))
+            resolve(response)
+          })
+          .catch( error => {
+            reject(error)
+          })
+    })
+  }
+}
+
 export const fetchVariants = (id) => {
   return dispatch => {
     dispatch(setApplicationLoadingState(true))

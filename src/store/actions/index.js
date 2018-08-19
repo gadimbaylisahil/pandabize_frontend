@@ -5,6 +5,9 @@ export {
   fetchBicycles,
   fetchBicycle,
   fetchVariants,
+  patchBicycle,
+  deleteBicycle,
+  deleteVariant
 } from './bicycle'
 
 export {

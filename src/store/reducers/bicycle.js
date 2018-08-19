@@ -6,7 +6,7 @@ const initialState = {
   bicycle: null,
   error: false,
   variants: null,
-  loading: false
+  loading: false,
 }
 
 const setBicycles = (state, action) => {

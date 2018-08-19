@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import Aux from '../../../hoc/Aux/Aux'
-import { Card, Input } from 'antd'
+import { Card, Input, Icon, notification } from 'antd'
 import Variants from '../../../components/Bicycle/Variants'
 import * as actions from "../../../store/actions";
 const { TextArea } = Input;
@@ -12,8 +12,35 @@ class EditBicycle extends Component {
     description: null
   }
   
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({[event.target.name]: event.target.value});
+  }
+  
+  openNotificationWithIcon = (type, message) => {
+    notification[type]({
+      message: message
+    });
+  };
+  
+  save = () => {
+    this.props.updateBicycle(this.props.match.params.id, this.state)
+        .then( response => {
+          this.openNotificationWithIcon('success', 'You have successfully updated the Bicycle.')
+        })
+        .catch( error => {
+          this.openNotificationWithIcon('error', error.response.data.message)
+        })
+  }
+  
+  delete = () => {
+    this.props.deleteBicycle(this.props.match.params.id)
+        .then( response => {
+          this.openNotificationWithIcon('success', 'You have deleted the Bicycle.')
+          this.props.history.push('/admin/bicycles/')
+        })
+        .catch( error => {
+          this.openNotificationWithIcon('error', error.response.data.message)
+        })
   }
   
   componentDidMount(){
@@ -34,9 +61,10 @@ class EditBicycle extends Component {
     }
     return (
         <div>
-          <Card title="Main Information">
-            <Input placeholder="Title" type="text" name="name" value={this.state.name} onChange={this.handleChange} />
-            <TextArea placeholder="Description" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
+          <Card title={`Main information for ${this.state.name}`}
+                actions={[<Icon onClick={this.save} type="save" />, <Icon onClick={this.delete} type="delete" />]}>
+            <Input addonBefore="Name" type="text" name="name" value={this.state.name} onChange={this.handleChange} />
+            <Input addonBefore="Description" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
           </Card>
           <Card title="Variants">
             {variants}
@@ -57,7 +85,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getBicycle: (id) => dispatch(actions.fetchBicycle(id)),
-    getVariants: (id) => dispatch(actions.fetchVariants(id))
+    getVariants: (id) => dispatch(actions.fetchVariants(id)),
+    updateBicycle: (id, data) => dispatch(actions.patchBicycle(id, data)),
+    deleteBicycle: (id) => dispatch(actions.deleteBicycle(id)),
   }
 }
 
