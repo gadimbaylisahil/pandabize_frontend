@@ -22,6 +22,13 @@ export const setBicycle = ( bicycle ) => {
   }
 }
 
+export const setVariants = ( variants ) => {
+  return {
+    type: actionTypes.SET_VARIANTS,
+    variants
+  }
+}
+
 export const fetchBicyclesFailed = () => {
   return {
     type: actionTypes.FETCH_BICYCLES_FAILED
@@ -35,6 +42,21 @@ export const fetchBicycles = () => {
         .then( response => {
           dispatch(setApplicationLoadingState(false))
           dispatch(setBicycles(response.data))
+        })
+        .catch( error => {
+          dispatch(setApplicationLoadingState(false))
+          dispatch(fetchBicyclesFailed())
+        })
+  }
+}
+
+export const fetchVariants = (id) => {
+  return dispatch => {
+    dispatch(setApplicationLoadingState(true))
+    pandabizeApi.get( 'bicycles/' + id + '/variants.json' + '?include=option_values' )
+        .then( response => {
+          dispatch(setApplicationLoadingState(false))
+          dispatch(setVariants(response.data))
         })
         .catch( error => {
           dispatch(setApplicationLoadingState(false))

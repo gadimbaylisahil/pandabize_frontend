@@ -1,8 +1,10 @@
 export {
   setBicycles,
   setBicycle,
+  setVariants,
   fetchBicycles,
-  fetchBicycle
+  fetchBicycle,
+  fetchVariants,
 } from './bicycle'
 
 export {
