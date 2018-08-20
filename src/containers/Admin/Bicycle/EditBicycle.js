@@ -67,14 +67,17 @@ class EditBicycle extends Component {
     return (
         <div>
           <Card title={`Main information for ${this.state.name}`}
-                actions={[<Icon onClick={this.save} type="save" />, <Icon onClick={this.delete} type="delete" />]}>
+                actions={[<Icon onClick={this.save} type="save" />, <Icon onClick={this.delete} type="delete" />]}
+                hoverable bordered>
             <Input addonBefore="Name" type="text" name="name" value={this.state.name} onChange={this.handleChange} />
             <Input addonBefore="Description" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
           </Card>
-          <Card title="Options">
+          <Card title="Options"
+                hoverable>
             {options}
           </Card>
-          <Card title="Variants">
+          <Card title="Variants"
+                hoverable>
             {variants}
           </Card>
         </div>
