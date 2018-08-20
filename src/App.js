@@ -3,6 +3,7 @@ import { Route, Switch, withRouter } from 'react-router-dom'
 // import { connect } from 'react-redux'
 import 'antd/dist/antd.css'
 import { BackTop, Layout } from 'antd';
+import Navigation from './components/Navigation/Navigation'
 // import * as actions from './store/actions/index'
 import './App.css'
 import AllBicycles from './containers/Admin/Bicycle/AllBicycles'
@@ -11,7 +12,7 @@ import EditBicycle from './containers/Admin/Bicycle/EditBicycle'
 import ShowBicycle from './containers/Customer/Shop/Bicycle/ShowBicycle'
 // import ShoppingCart from './containers/Customer/Shop/ShoppingCart/ShoppingCart'
 import Home from './containers/Home/Home'
-const { Content } = Layout;
+const { Content, Header } = Layout;
 
 class App extends Component {
   render() {
@@ -22,6 +23,9 @@ class App extends Component {
           <strong style={{ color: 'red' }}></strong>
         </div>
         <Layout className="container" >
+          <Header>
+            <Navigation/>
+          </Header>
           <Content>
             <Switch>
               <Route path="/admin/bicycles" exact component={AllBicycles} />
