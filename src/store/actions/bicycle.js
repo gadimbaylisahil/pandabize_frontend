@@ -29,6 +29,13 @@ export const setVariants = ( variants ) => {
   }
 }
 
+export const setOptions = ( options ) => {
+  return {
+    type: actionTypes.SET_OPTIONS,
+    options
+  }
+}
+
 export const fetchBicyclesFailed = () => {
   return {
     type: actionTypes.FETCH_BICYCLES_FAILED
@@ -83,6 +90,40 @@ export const deleteVariant = (bicycleId, variantId) => {
   }
 }
 
+export const deleteOption = (bicycleId, optionId) => {
+  return dispatch => {
+    dispatch(setApplicationLoadingState(true))
+    return new Promise( (resolve, reject) => {
+      pandabizeApi.delete('bicycles/' + bicycleId + '/options/' + optionId)
+          .then( response => {
+            dispatch(setApplicationLoadingState(false))
+            resolve(response)
+          })
+          .catch( error => {
+            dispatch(setApplicationLoadingState(false))
+            reject(error)
+          })
+    })
+  }
+}
+
+export const deleteOptionValue = (bicycleId, optionId, optionValueId) => {
+  return dispatch => {
+    dispatch(setApplicationLoadingState(true))
+    return new Promise( (resolve, reject) => {
+      pandabizeApi.delete('bicycles/' + bicycleId + '/options/' + optionId + '/option_values/' + optionValueId)
+          .then( response => {
+            dispatch(setApplicationLoadingState(false))
+            resolve(response)
+          })
+          .catch( error => {
+            dispatch(setApplicationLoadingState(false))
+            reject(error)
+          })
+    })
+  }
+}
+
 export const deleteBicycle = (id) => {
   return dispatch => {
     dispatch(setApplicationLoadingState(true))
@@ -106,6 +147,21 @@ export const fetchVariants = (id) => {
         .then( response => {
           dispatch(setApplicationLoadingState(false))
           dispatch(setVariants(response.data))
+        })
+        .catch( error => {
+          dispatch(setApplicationLoadingState(false))
+          dispatch(fetchBicyclesFailed())
+        })
+  }
+}
+
+export const fetchOptions = (id) => {
+  return dispatch => {
+    dispatch(setApplicationLoadingState(true))
+    pandabizeApi.get( 'bicycles/' + id + '/options.json' )
+        .then( response => {
+          dispatch(setApplicationLoadingState(false))
+          dispatch(setOptions(response.data))
         })
         .catch( error => {
           dispatch(setApplicationLoadingState(false))

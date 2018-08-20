@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 // import Aux from '../../../hoc/Aux/Aux'
 import { Card, Input, Icon, notification } from 'antd'
 import Variants from '../../../components/Bicycle/Variants'
+import Options from '../../../components/Bicycle/Options'
 import * as actions from "../../../store/actions";
-const { TextArea } = Input;
 
 class EditBicycle extends Component {
   state = {
@@ -51,13 +51,18 @@ class EditBicycle extends Component {
             description: response.data.attributes.description
           })
           this.props.getVariants(this.props.match.params.id)
+          this.props.getOptions(this.props.match.params.id)
         })
   }
   
   render() {
     let variants = null
+    let options = null
     if(this.props.variants){
       variants = <Variants variants={this.props.variants}/>
+    }
+    if(this.props.options){
+      options = <Options options={this.props.options}/>
     }
     return (
         <div>
@@ -65,6 +70,9 @@ class EditBicycle extends Component {
                 actions={[<Icon onClick={this.save} type="save" />, <Icon onClick={this.delete} type="delete" />]}>
             <Input addonBefore="Name" type="text" name="name" value={this.state.name} onChange={this.handleChange} />
             <Input addonBefore="Description" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
+          </Card>
+          <Card title="Options">
+            {options}
           </Card>
           <Card title="Variants">
             {variants}
@@ -78,6 +86,7 @@ const mapStateToProps = state => {
   return {
     bicycle: state.bicycle.bicycle,
     variants: state.bicycle.variants,
+    options: state.bicycle.options,
     loading: state.bicycle.loading
   }
 }
@@ -86,6 +95,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getBicycle: (id) => dispatch(actions.fetchBicycle(id)),
     getVariants: (id) => dispatch(actions.fetchVariants(id)),
+    getOptions: (id) => dispatch(actions.fetchOptions(id)),
     updateBicycle: (id, data) => dispatch(actions.patchBicycle(id, data)),
     deleteBicycle: (id) => dispatch(actions.deleteBicycle(id)),
   }

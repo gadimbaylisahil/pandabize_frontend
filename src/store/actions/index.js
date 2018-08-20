@@ -7,7 +7,11 @@ export {
   fetchVariants,
   patchBicycle,
   deleteBicycle,
-  deleteVariant
+  deleteVariant,
+  fetchOptions,
+  setOptions,
+  deleteOption,
+  deleteOptionValue
 } from './bicycle'
 
 export {
