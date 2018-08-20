@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Card, Icon } from 'antd'
 import { Radio, Divider, Button, Modal, notification } from 'antd';
-import * as actions from "../../../../store/actions";
+import * as actions from '../../store/actions/index'
 import './ShowBicycle.css'
 
 const RadioGroup = Radio.Group;

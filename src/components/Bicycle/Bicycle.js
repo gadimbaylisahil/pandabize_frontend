@@ -8,7 +8,7 @@ const bicycle = (props) => {
   if(props.isAdmin) {
     actions = [<Icon onClick={ props.editClicked } type="setting"/>, <Icon onClick={ props.deleteClicked } type="delete" />]
   } else {
-    actions = [<Icon type="shop"/>]
+    actions = [<Icon onClick={ props.showClicked } type="shop"/>]
   }
   
   return (

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { Row, notification } from 'antd';
-import Bicycle from '../../../components/Bicycle/Bicycle'
-import Aux from '../../../hoc/Aux/Aux'
+import Bicycle from '../../components/Bicycle/Bicycle'
+import Aux from '../../hoc/Aux/Aux'
 
-import * as actions from '../../../store/actions/index'
+import * as actions from '../../store/actions/index'
 // import { Redirect } from 'react-router-dom'
 class AllBicycles extends Component {
   
@@ -14,6 +14,10 @@ class AllBicycles extends Component {
   
   redirectToEdit(id) {
     this.props.history.push('/edit/bicycles/' + id)
+  }
+
+  redirectToShow(id){
+    this.props.history.push('/bicycles/' + id)
   }
   
   openNotificationWithIcon = (type, message) => {
@@ -37,12 +41,13 @@ class AllBicycles extends Component {
     
     if(this.props.bicycles){
       bicycles = this.props.bicycles.data.map( bicycle => {
-        return <Bicycle loading={this.props.loading}
-                        editClicked={ () => this.redirectToEdit(bicycle.id)}
-                        deleteClicked={ () => this.removeBicycle(bicycle.id)}
-                        bicycle={bicycle}
-                        isAdmin={this.props.isAdmin}
-                        key={bicycle.id}/>
+        return <Bicycle loading={ this.props.loading }
+                        editClicked={ () => this.redirectToEdit(bicycle.id) }
+                        showClicked={ () => this.redirectToShow(bicycle.id) }
+                        deleteClicked={ () => this.removeBicycle(bicycle.id) }
+                        bicycle={ bicycle }
+                        isAdmin={ this.props.isAdmin }
+                        key={ bicycle.id }/>
       })
     }
     

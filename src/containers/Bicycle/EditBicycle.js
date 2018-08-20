@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import Aux from '../../../hoc/Aux/Aux'
 import { Card, Input, Icon, notification } from 'antd'
-import Variants from '../../../components/Bicycle/Variants'
-import Options from '../../../components/Bicycle/Options'
-import * as actions from "../../../store/actions";
+import Variants from '../../components/Bicycle/Variants'
+import Options from '../../components/Bicycle/Options'
+import * as actions from '../../store/actions/index'
 
 class EditBicycle extends Component {
   state = {

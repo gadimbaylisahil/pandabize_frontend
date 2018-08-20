@@ -3,7 +3,8 @@ import {
   Redirect,
 } from "react-router-dom";
 import { connect } from 'react-redux'
-
+import { Card, Button } from 'antd'
+import './Home.css'
 import * as actions from '../../store/actions/index';
 
 class Home extends Component {
@@ -22,18 +23,13 @@ class Home extends Component {
   
   render () {
     if(this.state.selected === true) {
-      if(this.props.isAdmin === true){
-        return <Redirect to='/admin/bicycles' />
-      } else if(this.props.isAdmin === false) {
         return <Redirect to='/bicycles' />
-      }
     }
     return (
-        <div>
-          <h3>How would you like to enter the app?</h3>
-          <button onClick={ () => this.loginHandler(true)}>As Admin</button>
-          <button onClick={ () => this.loginHandler(false)}>As Customer</button>
-        </div>
+        <Card className="loginCard" title="How would you like to enter the shop?">
+          <Button type="primary" onClick={ () => this.loginHandler(true)}>As Admin</Button>
+          <Button type="success" onClick={ () => this.loginHandler(false)}>As Customer</Button>
+        </Card>
     )
   }
 }
