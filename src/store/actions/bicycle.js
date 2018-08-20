@@ -174,6 +174,24 @@ export const deleteBicycle = (id) => {
   }
 }
 
+export const postBicycles = (data) => {
+  return dispatch => {
+    dispatch(setApplicationLoadingState(true))
+    return new Promise( (resolve, reject) => {
+      pandabizeApi.post( 'bicycles/', data)
+          .then( response => {
+            dispatch(setApplicationLoadingState(false))
+            dispatch(setBicycle(response.data))
+            resolve(response.data)
+          })
+          .catch( error => {
+            dispatch(setApplicationLoadingState(false))
+            reject(error.data)
+          })
+    })
+  }
+}
+
 export const fetchVariants = (id) => {
   return dispatch => {
     dispatch(setApplicationLoadingState(true))

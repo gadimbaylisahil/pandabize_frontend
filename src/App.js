@@ -10,6 +10,7 @@ import AllBicycles from './containers/Bicycle/AllBicycles'
 import EditBicycle from './containers/Bicycle/EditBicycle'
 import ShowBicycle from './containers/Bicycle/ShowBicycle'
 import Home from './containers/Home/Home'
+import NewBicycle from "./containers/Bicycle/NewBicycle";
 const { Content, Header } = Layout;
 
 class App extends Component {
@@ -26,6 +27,7 @@ class App extends Component {
     content = <Content>
                 <Switch>
                   <Route path="/bicycles" exact component={AllBicycles} />
+                  <Route path="/bicycles/new" exact component={NewBicycle} />
                   <Route path={"/shop"} exact component={AllBicycles} />
                   <Route path="/edit/bicycles/:id" component={EditBicycle} />
                   <Route path="/bicycles/:id" exact component={ShowBicycle} />

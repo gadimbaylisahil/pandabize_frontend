@@ -80,7 +80,6 @@ class Options extends Component {
   }
 
   updateOptionValue = () => {
-    debugger;
     this.props.updateOptValue(this.props.match.params.id, this.state.id, this.state.option_value_id, { name: this.state.option_value.name })
         .then( response => {
           this.openNotificationWithIcon('success', 'You have successfully updated the Option Value.')

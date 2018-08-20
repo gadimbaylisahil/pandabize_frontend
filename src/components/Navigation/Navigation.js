@@ -6,7 +6,9 @@ class Navigation extends Component {
   render(){
     let menu_items
     if(this.props.isAdmin === true){
-      menu_items =  [ <Menu.Item key="1"><Link to="/bicycles">All Bicycles</Link></Menu.Item>, <Menu.Item key="2"><Link to="/home">Change Login</Link></Menu.Item> ]
+      menu_items =  [ <Menu.Item key="1"><Link to="/bicycles">All Bicycles</Link></Menu.Item>,
+                      <Menu.Item key="2"><Link to="/bicycles/new">Create Bicycle</Link></Menu.Item>,
+                      <Menu.Item key="3"><Link to="/home">Change Login</Link></Menu.Item> ]
     } else if(this.props.isAdmin === false) {
       menu_items =  [ <Menu.Item key="1"><Link to="/shop">Shop</Link></Menu.Item>,  <Menu.Item key="2"><Link to="/home">Change Login</Link></Menu.Item> ]
     } else {

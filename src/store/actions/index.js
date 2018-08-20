@@ -13,7 +13,8 @@ export {
   deleteOption,
   deleteOptionValue,
   patchOption,
-  patchOptionValue
+  patchOptionValue,
+  postBicycles
 } from './bicycle'
 
 export {
