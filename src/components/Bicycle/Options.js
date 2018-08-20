@@ -7,8 +7,13 @@ import { withRouter } from 'react-router'
 class Options extends Component {
   state = {
     editMode: false,
+    editModeOptionValue: false,
     name: '',
-    id: null
+    id: null,
+    option_value_id: null,
+    option_value: {
+      name: '',
+    }
   }
 
   openNotificationWithIcon = (type, message) => {
@@ -25,20 +30,39 @@ class Options extends Component {
     })
   }
 
+  editOptionValue = option_value => {
+    this.setState({
+      editModeOptionValue: true,
+      id: option_value.option_id,
+      option_value_id: option_value.id,
+      option_value: {
+        name: option_value.name,
+      }
+    })
+  }
+
   handleOk = () => {
     this.update()
+  }
+
+  handleOkOptionValue = () => {
+    this.updateOptionValue()
   }
 
   handleCancel = () => {
     this.setState({
       editMode: false,
+      editModeOptionValue: false,
       name: '',
-      id: null
+      id: null,
+      option_value: {
+        name: '',
+        id: null
+      }
     })
   }
 
   update = () => {
-    debugger;
     this.props.updateOption(this.props.match.params.id, this.state.id, { name: this.state.name })
         .then( response => {
           this.openNotificationWithIcon('success', 'You have successfully updated the Option.')
@@ -55,9 +79,37 @@ class Options extends Component {
         })
   }
 
+  updateOptionValue = () => {
+    debugger;
+    this.props.updateOptValue(this.props.match.params.id, this.state.id, this.state.option_value_id, { name: this.state.option_value.name })
+        .then( response => {
+          this.openNotificationWithIcon('success', 'You have successfully updated the Option Value.')
+        })
+        .catch( error => {
+          this.openNotificationWithIcon('error', error.response.data.message)
+        })
+        .finally( () => {
+          this.setState({
+            editModeOptionValue: false,
+            option_value: {
+              name: '',
+              id: null
+            }
+          })
+        })
+  }
+
   handleChange = (e) => {
     this.setState({
       name: e.target.value
+    })
+  }
+
+  handleChangeOptionValue = (e) => {
+    this.setState({
+      option_value: {
+        name: e.target.value
+      }
     })
   }
 
@@ -92,6 +144,14 @@ class Options extends Component {
               okText="Save">
             <Input addonBefore="Name" type="text" name="name" value={this.state.name} onChange={this.handleChange} />
           </Modal>
+          <Modal
+              title="Edit Option"
+              visible={this.state.editModeOptionValue}
+              onOk={this.handleOkOptionValue}
+              onCancel={this.handleCancel}
+              okText="Save">
+            <Input addonBefore="Name" type="text" name="name" value={this.state.option_value.name} onChange={this.handleChangeOptionValue} />
+          </Modal>
           <List
               grid={{ gutter: 16, xs: 1, sm: 2, md: 2, lg: 2, xl: 2, xxl: 6 }}
               itemLayout="horizontal"
@@ -107,7 +167,8 @@ class Options extends Component {
                           dataSource={option.attributes.option_values}
                           renderItem={option_value => (
                               <List.Item>
-                                <Card actions={[<Icon type="setting" />,
+                                <Card actions={[<Icon onClick={() => this.editOptionValue(option_value)}
+                                                      type="setting" />,
                                   <Icon onClick={() => this.deleteValue(option.relationships.bicycle.data.id, option.id, option_value.id)}
                                         type="delete" />]}>
                                   {option_value.name}
@@ -126,6 +187,7 @@ const mapDispatchToProps = dispatch => {
   return {
     deleteOption: (bicycleId, optionId) => dispatch(actions.deleteOption(bicycleId, optionId)),
     updateOption: (bicycleId, optionId, data) => dispatch(actions.patchOption(bicycleId, optionId, data)),
+    updateOptValue: (bicycleId, optionId, optionValueId, data) => dispatch(actions.patchOptionValue(bicycleId, optionId, optionValueId, data)),
     deleteOptionValue: (bicycleId, optionId, optionValueId) => dispatch(actions.deleteOptionValue(bicycleId, optionId, optionValueId))
   }
 }

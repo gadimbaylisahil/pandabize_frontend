@@ -78,7 +78,7 @@ export const patchOptionValue = (bicycleId, optionId, optionValueId, data) => {
   return dispatch => {
     dispatch(setApplicationLoadingState(true))
     return new Promise( (resolve, reject) => {
-      pandabizeApi.patch('bicycles/' + bicycleId + '/options/' + optionId, + '/option_values/' + optionValueId, { option: data })
+      pandabizeApi.patch('bicycles/' + bicycleId + '/options/' + optionId + '/option_values/' + optionValueId, { option_value: data })
           .then( response => {
             dispatch(setApplicationLoadingState(true))
             resolve(response)
