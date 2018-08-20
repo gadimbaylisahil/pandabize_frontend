@@ -9,8 +9,8 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import bicycleReducer from './store/reducers/bicycle'
 import authReducer from './store/reducers/auth'
-
-const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+console.log(window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose : null;
 
 const rootReducer = combineReducers( {
   bicycle: bicycleReducer,

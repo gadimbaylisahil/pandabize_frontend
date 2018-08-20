@@ -11,7 +11,9 @@ export {
   fetchOptions,
   setOptions,
   deleteOption,
-  deleteOptionValue
+  deleteOptionValue,
+  patchOption,
+  patchOptionValue
 } from './bicycle'
 
 export {
