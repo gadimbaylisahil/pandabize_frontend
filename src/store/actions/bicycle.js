@@ -126,7 +126,6 @@ export const deleteBicycle = (id) => {
   }
 }
 
-
 export const fetchVariants = (id) => {
   return dispatch => {
     dispatch(setApplicationLoadingState(true))

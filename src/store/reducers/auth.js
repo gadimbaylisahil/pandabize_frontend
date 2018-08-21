@@ -1,12 +1,15 @@
 import * as actionTypes from '../actions/actionTypes'
 import { updateObject } from '../../shared/update'
 
+// Ignore local storage retrieval in test environment
 const initialState = {
-  isAdmin: localStorage.getItem('isAdmin') ? JSON.parse(localStorage.getItem('isAdmin')).isAdmin : null
+  isAdmin: (process.env.NODE_ENV !== 'test' && localStorage.getItem('isAdmin')) ? JSON.parse(localStorage.getItem('isAdmin')).isAdmin : null
 }
 
 const setUserType = (state, action) => {
-  localStorage.setItem('isAdmin', JSON.stringify({ isAdmin: action.isAdmin }))
+  if(process.env.NODE_ENV !== 'test')
+    localStorage.setItem('isAdmin', JSON.stringify({ isAdmin: action.isAdmin }))
+  
   return updateObject( state, {
     isAdmin: action.isAdmin,
   })
