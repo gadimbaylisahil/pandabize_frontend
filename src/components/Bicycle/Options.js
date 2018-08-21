@@ -159,8 +159,8 @@ class Options extends Component {
                   <List.Item>
                     <Card title={option.attributes.name}
                           actions={[<Icon onClick={() => this.edit(option) } type="setting" />,
-                            <Icon onClick={() => this.delete(option.relationships.bicycle.data.id, option.id)}
-                                  type="delete" />]}>
+                                    <Icon onClick={() => this.delete(option.relationships.bicycle.data.id, option.id)}
+                                          type="delete" />]}>
                       <List
                           itemLayout="horizontal"
                           dataSource={option.attributes.option_values}

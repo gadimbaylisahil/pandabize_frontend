@@ -24,5 +24,10 @@ On development application will send requests to localhost:8081/,
 so it would be better to run your Rails Server at that port.
 
 ## Running Tests
+
 ```
+npm test
 ```
+
+If you have issue in running tests try running 
+`brew install watchman`

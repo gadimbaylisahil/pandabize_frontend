@@ -142,6 +142,23 @@ export const fetchVariants = (id) => {
   }
 }
 
+export const patchVariant = (bicycleId, variantId, data) => {
+  return dispatch => {
+    dispatch(setApplicationLoadingState(true))
+    return new Promise( (resolve, reject) => {
+      pandabizeApi.patch( 'bicycles/' + bicycleId + '/variants/' + variantId, data)
+          .then( response => {
+            dispatch(setApplicationLoadingState(false))
+            resolve(response)
+          })
+          .catch( error => {
+            dispatch(setApplicationLoadingState(false))
+            reject(error)
+          })
+    })
+  }
+}
+
 export const deleteVariant = (bicycleId, variantId) => {
   return dispatch => {
     dispatch(setApplicationLoadingState(true))
