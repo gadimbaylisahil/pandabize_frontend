@@ -28,7 +28,7 @@ class App extends Component {
                     </Switch>
                   </Content>
     let header = <Header>
-                   <Navigation/>
+                   <Navigation isAdmin={this.props.isAdmin}/>
                  </Header>
     
     if(this.props.isAdmin === null ){
