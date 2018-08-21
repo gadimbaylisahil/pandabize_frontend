@@ -11,15 +11,20 @@ describe('<Navigation />', () => {
   
   it('when logged in as admin, it should have 3 menu items', () => {
     wrapper = shallow(<Navigation />)
+    wrapper.setProps({isAdmin: true})
     expect(wrapper.find(Menu.Item)).toHaveLength(3)
   })
   
-  // it('when logged in as normal user it should have 2 menu items', () => {
-  //   // expect(wrapper.find(Col).find(Card)).toHaveLength(1)
-  // })
-  //
-  // it('when logged of, it should not have any menu items', () => {
-  //
-  // })
+  it('when logged in as normal user it should have 2 menu items', () => {
+    wrapper = shallow(<Navigation />)
+    wrapper.setProps({isAdmin: false})
+    expect(wrapper.find(Menu.Item)).toHaveLength(2)
+  })
+
+  it('when logged of, it should not have any menu items', () => {
+    wrapper = shallow(<Navigation />)
+    wrapper.setProps({isAdmin: null})
+    expect(wrapper.find(Menu.Item)).toHaveLength(0)
+  })
   
 })
