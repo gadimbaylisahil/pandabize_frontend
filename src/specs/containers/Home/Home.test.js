@@ -1,5 +1,5 @@
 import React from 'react'
-import { configure, shallow } from 'enzyme'
+import { configure, shallow, mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import configureStore from 'redux-mock-store'
 import { Card, Button } from 'antd'
@@ -20,14 +20,14 @@ describe('<Home />', () => {
   
   beforeEach( () => {
     store = mockStore(initialState)
-    wrapper = shallow(<Home store={store} />)
+    wrapper = mount(<Home store={store} />)
   })
 
   it('should render a card for the login', () => {
-    expect(wrapper.find(Card)).toHaveLength(1)
+    expect(wrapper.find(Card)).toBeTruthy()
   })
   
   it('should have two buttons for each user type login', () => {
-    expect(wrapper.find(Button)).toHaveLength(1)
+    expect(wrapper.find(Card).find(Button)).toHaveLength(2)
   })
 })
