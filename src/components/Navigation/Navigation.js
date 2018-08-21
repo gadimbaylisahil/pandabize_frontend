@@ -18,8 +18,8 @@ class Navigation extends Component {
     
     return(
         <Menu
-            theme="dark"
             mode="horizontal"
+            theme="dark"
             style={{ lineHeight: '64px' }}>
           {menu_items}
         </Menu>
