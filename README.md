@@ -7,6 +7,12 @@ You can find DEMO [here](https://pandabize.firebaseapp.com/)
 
 You can find the respository for api [here](https://github.com/gadimbaylisahil/pandabize_api)
 
+### More information:
+App contains simple structure with functional and stateful components. 
+It uses Redux for state management and `react-router-dom` for Routing. 
+Test suite uses Enzyme and Jest.
+
+
 ### Prerequisites
 
 npm
@@ -29,5 +35,5 @@ so it would be better to run your Rails Server at that port.
 npm test
 ```
 
-If you have issue in running tests try running 
+If you have issues in running tests try running 
 `brew install watchman`
