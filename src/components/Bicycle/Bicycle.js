@@ -16,7 +16,7 @@ const bicycle = (props) => {
         <Card
             loading={props.loading}
             hoverable
-            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+            cover={<img alt="example" src="https://images.pexels.com/photos/276517/pexels-photo-276517.jpeg?auto=compress&cs=tinysrgb&h=350" />}
             actions={actions}
         >
           <Meta
