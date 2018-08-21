@@ -93,7 +93,7 @@ class Variants extends Component {
     return(
         <div>
           <Modal
-              title="Edit Variant"
+              title={`Edit Variant ` + this.state.id}
               visible={this.state.editMode}
               onOk={this.handleOk}
               onCancel={this.handleCancel}

@@ -144,7 +144,7 @@ class Options extends Component {
             <Input addonBefore="Name" type="text" name="name" value={this.state.name} onChange={this.handleChange} />
           </Modal>
           <Modal
-              title="Edit Option"
+              title="Edit Option Value"
               visible={this.state.editModeOptionValue}
               onOk={this.handleOkOptionValue}
               onCancel={this.handleCancel}
@@ -170,7 +170,7 @@ class Options extends Component {
                                                       type="setting" />,
                                   <Icon onClick={() => this.deleteValue(option.relationships.bicycle.data.id, option.id, option_value.id)}
                                         type="delete" />]}>
-                                  {option_value.name}
+                                  {option_value.name}´
                                 </Card>
                               </List.Item>
                           )}/>

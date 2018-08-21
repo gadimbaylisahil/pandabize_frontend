@@ -31,7 +31,7 @@ class App extends Component {
                    <Navigation/>
                  </Header>
     
-    if(this.props.location.pathname === '/home' || this.props.location.pathname === '/'){
+    if(this.props.isAdmin === null ){
       header = null
     }
     
