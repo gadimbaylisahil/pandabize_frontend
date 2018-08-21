@@ -14,6 +14,22 @@ class ShowBicycle extends Component {
     checkoutModal: false,
     variant: null
   }
+  
+  componentDidMount(){
+    this.props.getBicycle(this.props.match.params.id)
+        .then( response => {
+          this.pullOptions()
+          this.props.getOptions(this.props.match.params.id)
+          this.props.getVariants(this.props.match.params.id)
+        })
+        .catch( error => {
+          console.log('Bicycle not found')
+        })
+  }
+  
+  shouldComponentUpdate(nextProps, nextState) {
+    return (this.state.options !== nextState.options) || (this.state.checkoutModal !== nextState.checkoutModal)
+  }
 
   openNotificationWithIcon = (type, message) => {
     notification[type]({
@@ -44,17 +60,20 @@ class ShowBicycle extends Component {
       checkoutModal: false
     })
   }
-
+  
+  // Iterates through the selected option values and find the requested Variant based on these values.
   activateCheckout() {
     let included
     let total_options = this.state.options.length
     let selected_options = this.state.options.map( option => {
         return option.selectedValue
     })
+    
     if(selected_options.includes(null)){
       this.openNotificationWithIcon('error', 'Please select the bicycle type.')
       return
     }
+    
     let variant = this.props.variants.data.filter( variant => {
       included = null
       included = variant.attributes.option_values.filter( option_value => selected_options.includes(option_value.id))
@@ -68,25 +87,9 @@ class ShowBicycle extends Component {
       console.log(this.state.checkoutModal)
     })
   }
-
-  componentDidMount(){
-    this.props.getBicycle(this.props.match.params.id)
-        .then( response => {
-          this.pullOptions()
-          this.props.getOptions(this.props.match.params.id)
-          this.props.getVariants(this.props.match.params.id)
-        })
-        .catch( error => {
-          console.log('Bicycle not found')
-        })
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return (this.state.options !== nextState.options) || (this.state.checkoutModal !== nextState.checkoutModal)
-  }
-
+  
+  // Get options from backend and set them in the states as array of key value pairs for creating radio buttons
   pullOptions = () => {
-    // Get options from backend and set them in the states as array of key value pairs for creating radio buttons
     let options = []
     if (this.props.bicycle) {
       this.props.bicycle.data.attributes.options.map((option, index) => {
@@ -115,6 +118,8 @@ class ShowBicycle extends Component {
     let bicycle = null
     let options = null
     if(this.props.bicycle){
+      
+      // Maps current options array into RadioGroup Components.
       if(this.state.options){
         options = this.state.options.map( (option, index) => {
           return (
@@ -128,22 +133,23 @@ class ShowBicycle extends Component {
               </div> )
         })
       }
+      
       bicycle = <Card
-          className="bicycleShowCard"
-          cover={<img alt="example" src="https://cdn.shopify.com/s/files/1/0232/3305/products/state_bicycle_co_green_hunter_fixie_1_1024x1024.jpg?v=1512236086" />}>
-        <Card.Meta
-            title={this.props.bicycle.data.attributes.name}
-            description={this.props.bicycle.data.attributes.description}
-        />
-        <Divider orientation="center"/>
-        <div>
-          {options}
-        </div>
-        <Divider orientation="center"/>
-        <Button type="primary"
-                onClick={this.activateCheckout.bind(this)}>
-          Continue</Button>
-      </Card>
+                    className="bicycleShowCard"
+                    cover={<img alt="example" src="https://cdn.shopify.com/s/files/1/0232/3305/products/state_bicycle_co_green_hunter_fixie_1_1024x1024.jpg?v=1512236086" />}>
+                  <Card.Meta
+                      title={this.props.bicycle.data.attributes.name}
+                      description={this.props.bicycle.data.attributes.description}
+                  />
+                  <Divider orientation="center"/>
+                  <div>
+                    {options}
+                  </div>
+                  <Divider orientation="center"/>
+                  <Button type="primary"
+                          onClick={this.activateCheckout.bind(this)}>
+                    Continue</Button>
+                </Card>
     }
 
     return(

@@ -1,15 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import Aux from '../../../hoc/Aux/Aux'
+
 import { Card, Input, Icon, notification } from 'antd'
 import Variants from '../../components/Bicycle/Variants'
 import Options from '../../components/Bicycle/Options'
+
 import * as actions from '../../store/actions/index'
 
 class EditBicycle extends Component {
   state = {
     name: null,
     description: null
+  }
+  
+  componentDidMount(){
+    this.props.getBicycle(this.props.match.params.id)
+        .then( response => {
+          this.setState({
+            name: response.data.attributes.name,
+            description: response.data.attributes.description
+          })
+          this.props.getVariants(this.props.match.params.id)
+          this.props.getOptions(this.props.match.params.id)
+        })
   }
   
   handleChange = (event) => {
@@ -43,32 +56,25 @@ class EditBicycle extends Component {
         })
   }
   
-  componentDidMount(){
-    this.props.getBicycle(this.props.match.params.id)
-        .then( response => {
-          this.setState({
-            name: response.data.attributes.name,
-            description: response.data.attributes.description
-          })
-          this.props.getVariants(this.props.match.params.id)
-          this.props.getOptions(this.props.match.params.id)
-        })
-  }
-  
   render() {
     let variants = null
     let options = null
+    
     if(this.props.variants){
       variants = <Variants variants={this.props.variants}/>
     }
+    
     if(this.props.options){
       options = <Options options={this.props.options}/>
     }
+    
     return (
         <div>
           <Card title={`Main information for ${this.state.name}`}
-                actions={[<Icon onClick={this.save} type="save" />, <Icon onClick={this.delete} type="delete" />]}
-                hoverable bordered>
+                actions={[<Icon onClick={this.save} type="save" />,
+                          <Icon onClick={this.delete} type="delete" />]}
+                hoverable
+                bordered>
             <Input addonBefore="Name" type="text" name="name" value={this.state.name} onChange={this.handleChange} />
             <Input addonBefore="Description" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
           </Card>

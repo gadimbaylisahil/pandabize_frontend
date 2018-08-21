@@ -1,29 +1,41 @@
 import React, { Component } from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+
+import './App.css'
 import 'antd/dist/antd.css'
+
 import { BackTop, Layout } from 'antd';
 import Navigation from './components/Navigation/Navigation'
-// import * as actions from './store/actions/index'
-import './App.css'
+
 import AllBicycles from './containers/Bicycle/AllBicycles'
 import EditBicycle from './containers/Bicycle/EditBicycle'
 import ShowBicycle from './containers/Bicycle/ShowBicycle'
 import Home from './containers/Home/Home'
 import NewBicycle from "./containers/Bicycle/NewBicycle";
+
 const { Content, Header } = Layout;
 
 class App extends Component {
 
   render() {
-    let content = <Content>Please log in to continue.</Content>
+    
+    let content = <Content>
+                    Please log in to continue.
+                    <Switch>
+                      <Route path="/home" exact component={Home} />
+                      <Route path="/" component={Home} />
+                    </Switch>
+                  </Content>
     let header = <Header>
                    <Navigation/>
                  </Header>
+    
     if(this.props.location.pathname === '/home' || this.props.location.pathname === '/'){
       header = null
     }
-    if(this.props.isAdmin !== null || this.props.location.pathname === '/home'){
+    
+    if(this.props.isAdmin !== null){
     content = <Content>
                 <Switch>
                   <Route path="/bicycles" exact component={AllBicycles} />
@@ -32,9 +44,11 @@ class App extends Component {
                   <Route path="/edit/bicycles/:id" component={EditBicycle} />
                   <Route path="/bicycles/:id" exact component={ShowBicycle} />
                   <Route path="/" component={Home} />
+                  <Route path="/home" exact component={Home} />
                 </Switch>
               </Content>
     }
+    
     return (
       <div>
         <div>

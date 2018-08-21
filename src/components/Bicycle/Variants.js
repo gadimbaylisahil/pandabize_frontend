@@ -5,7 +5,7 @@ import * as actions from "../../store/actions";
 
 class Variants extends Component {
   
-  getOptionValues(variant){
+  getOptionValues = (variant) => {
     const optionValues = variant.attributes.option_values.map( optionValue => {
       return optionValue.name
     })

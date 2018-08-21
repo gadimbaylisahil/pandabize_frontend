@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Input, Col, Card, Checkbox, Button, Notification } from 'antd'
+import { Input, Divider, Card, Checkbox, Button, Notification } from 'antd'
 import * as actions from '../../store/actions/index'
 import { notification } from "antd/lib/index";
 const InputGroup = Input.Group;
@@ -100,36 +100,44 @@ class NewBicycle extends Component {
     })
   }
   
-  
   render(){
-    console.log(this.state)
+    
+    // Create input groups for option and option_values from state
     let option_input_group = this.state.options.map( (option, index) => {
       return <InputGroup compact
-                  key={index}>
-        <Input style={{ width: '20%' }}
-               placeholder="Option"
-               id={index}
-               onChange={this.handleOptionChange}
-               value={this.state.options[index].name} />
-        <Input style={{ width: '50%' }}
-               placeholder="Values seperated by comma"
-               onChange={this.handleOptionValueChange}
-               id={index}
-               value={this.state.options[index].option_values}/>
-      </InputGroup>
+                         key={index}>
+                <Input style={{ width: '20%' }}
+                       placeholder="Option"
+                       id={index}
+                       onChange={this.handleOptionChange}
+                       value={this.state.options[index].name} />
+                <Input style={{ width: '50%' }}
+                       placeholder="Values seperated by comma"
+                       onChange={this.handleOptionValueChange}
+                       id={index}
+                       value={this.state.options[index].option_values}/>
+            </InputGroup>
     })
+    
     return(
         <Card
-            className="newBicycleForm"
+            className="newBicycleCard"
             hoverable
-            style={{ width: 600 }}>
-          <Input addonBefore="Name" type="text" name="name" value={this.state.name} onChange={this.handleChange} />
-          <Input addonBefore="Description" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
-          <Input addonBefore="Price" type="text" name="price_cents" value={this.state.price_cents} onChange={this.handleChange} />
-          <Checkbox value="true" onChange={this.toggleOptions}>With options?</Checkbox>
-          <div hidden={this.state.with_options ? true : false}>
-            {option_input_group}
-          </div>
+            title="Create a new Bicycle"
+            >
+          <Card title="Main Information">
+            <Input addonBefore="Name" type="text" name="name" value={this.state.name} onChange={this.handleChange} />
+            <Input addonBefore="Description" type="text" name="description" value={this.state.description} onChange={this.handleChange} />
+            <Input addonBefore="Price" type="text" name="price_cents" value={this.state.price_cents} onChange={this.handleChange} />
+          </Card>
+          <Divider orientation="center"/>
+          <Card title="Options">
+            <Checkbox value="true" onChange={this.toggleOptions}>With options?</Checkbox>
+            <div hidden={this.state.with_options ? true : false}>
+              {option_input_group}
+            </div>
+          </Card>
+          <Divider orientation="center"/>
           <Button type="primary" onClick={this.createBicycle}>Create</Button>
         </Card>
     )

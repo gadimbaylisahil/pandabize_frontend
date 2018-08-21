@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
 import { Row, notification } from 'antd';
+
 import Bicycle from '../../components/Bicycle/Bicycle'
 import Aux from '../../hoc/Aux/Aux'
 
 import * as actions from '../../store/actions/index'
-// import { Redirect } from 'react-router-dom'
+
 class AllBicycles extends Component {
   
   componentDidMount(){
@@ -57,7 +58,7 @@ class AllBicycles extends Component {
             {bicycles}
           </Row>
         </Aux>
-        )
+    )
   }
 }
 

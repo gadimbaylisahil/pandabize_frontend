@@ -26,9 +26,11 @@ class Home extends Component {
         return <Redirect to='/bicycles' />
     }
     return (
-        <Card className="loginCard" title="How would you like to enter the shop?">
-          <Button type="primary" onClick={ () => this.loginHandler(true)}>As Admin</Button>
-          <Button type="success" onClick={ () => this.loginHandler(false)}>As Customer</Button>
+        <Card className="loginCard"
+              title="Login"
+              actions={[<Button onClick={ () => this.loginHandler(true)}>As Admin</Button>,
+                        <Button onClick={ () => this.loginHandler(false)}>As Customer</Button>]}>
+          <Card.Meta description="How would you like to enter the shop?" />
         </Card>
     )
   }
