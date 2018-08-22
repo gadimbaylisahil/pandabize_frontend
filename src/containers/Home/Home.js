@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import {
-  Redirect,
-} from "react-router-dom";
 import { connect } from 'react-redux'
 import { Card, Button } from 'antd'
 import './Home.css'
@@ -12,19 +9,12 @@ class Home extends Component {
     selected: false
   }
   
-  componentDidMount(){
-    this.setState( { selected: false })
-  }
-  
-  loginHandler(isAdmin){
-    this.setState( { selected: true })
+  loginHandler = (isAdmin) => {
     this.props.login(isAdmin)
+    this.props.history.push('/bicycles')
   }
   
   render () {
-    if(this.state.selected === true) {
-        return <Redirect to='/bicycles' />
-    }
     return (
         <Card className="loginCard"
               title="Login"
